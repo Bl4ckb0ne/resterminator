@@ -1,0 +1,29 @@
+extends layout
+
+block content
+    script(src="/javascripts/see-contrevenants.js")
+    
+    h1 Resterminator
+    
+    h3 Recherche de cible   
+
+    p Par date de jugement 
+    form#c-date(name="date-contrevenants", action="/contrevenants/date_jugement")
+        div.input
+            span.label Du 
+            input(type="date", name="du", id="du", min="2000-01-01")
+        div.input
+            span.label Au 
+            input(type="date", name="au", id="au", min="2000-01-01")
+        br
+        div.actions
+            input(type="submit", value="Submit")
+
+    p Par nom d'établissement
+    form#c-nom(name="nom-contrevenants", action="/contrevenants/etablissement")
+        select#options(name="etablissement")
+        br
+        input(type="submit", value="Submit")
+
+    #liste-contrevenants
+

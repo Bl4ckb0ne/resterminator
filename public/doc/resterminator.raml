@@ -1,0 +1,129 @@
+#%RAML 0.8
+title: resterminator
+version: 1
+baseUri: http://localhost:3000/
+
+/contrevenants/:
+    get:
+        description: Retourne la liste de tous les contrevenants
+        body:
+            application/json:
+                example: |
+                        "contrevenants": [
+                        {
+                            "__v": 0,
+                            "_id": "582cc1b9fff9cd68b004e61c",
+                            "adresse": "7007 Boul. Pie-IX",
+                            "categorie": "Restaurant",
+                            "date_infraction": "2013-01-28",
+                            "date_jugement": "2014-01-03",
+                            "description": "Les lieux, véhicules, équipements, matériaux et ustensiles servant à la préparation au conditionnement, à l'entreposage, au transport, à l'étiquetage et au service des produits, ainsi que les autres installations et locaux sanitaires, doivent être propres.",
+                            "etablissement": "RESTAURANT NGUN SHING",
+                            "montant": "2000 $",
+                            "proprietaire": "9159-9019 QUEBEC INC.  (Fermé changement d'exploitant)",
+                            "ville": "Montréal H2A 2G3"
+                        }
+    
+/contrevenants/date_jugement/:
+    get:
+        description: Retourne la liste des contrevenants ayant commis une infraction entre deux dates spécifiées 
+        queryParameters:
+            du: 
+                description: "Date d'infraction"
+                required: true
+                type: date
+                example: "2016-05-13"
+            au: 
+                description: "Date d'infraction"
+                required: true
+                type: date
+                example: "2016-05-13"
+        body:
+            application/json:
+                example: |
+                        "contrevenants": [
+                        {
+                            "__v": 0,
+                            "_id": "582cc1b9fff9cd68b004e61c",
+                            "adresse": "7007 Boul. Pie-IX",
+                            "categorie": "Restaurant",
+                            "date_infraction": "2013-01-28",
+                            "date_jugement": "2014-01-03",
+                            "description": "Les lieux, véhicules, équipements, matériaux et ustensiles servant à la préparation au conditionnement, à l'entreposage, au transport, à l'étiquetage et au service des produits, ainsi que les autres installations et locaux sanitaires, doivent être propres.",
+                            "etablissement": "RESTAURANT NGUN SHING",
+                            "montant": "2000 $",
+                            "proprietaire": "9159-9019 QUEBEC INC.  (Fermé changement d'exploitant)",
+                            "ville": "Montréal H2A 2G3"
+                        }
+
+/contrevenants/etablissement/:
+    get:
+        description: Retourne la liste des contrevenants par nom de restaurant 
+        queryParameters:
+            etablissement: 
+                description: "Nom d'établissement"
+                required: true
+                type: string
+                example: "L'ESCALIER+SHIMSHA"
+        body:
+            application/json:
+                example: |
+                        "contrevenants": [
+                        {
+                            "__v": 0,
+                            "_id": "582cc1b9fff9cd68b004e61c",
+                            "adresse": "7007 Boul. Pie-IX",
+                            "categorie": "Restaurant",
+                            "date_infraction": "2013-01-28",
+                            "date_jugement": "2014-01-03",
+                            "description": "Les lieux, véhicules, équipements, matériaux et ustensiles servant à la préparation au conditionnement, à l'entreposage, au transport, à l'étiquetage et au service des produits, ainsi que les autres installations et locaux sanitaires, doivent être propres.",
+                            "etablissement": "RESTAURANT NGUN SHING",
+                            "montant": "2000 $",
+                            "proprietaire": "9159-9019 QUEBEC INC.  (Fermé changement d'exploitant)",
+                            "ville": "Montréal H2A 2G3"
+                        }
+/contrevenants/etablissement/liste/:
+    get:
+        description: Retourne la liste des restaurants ayant commis une infraction, et le nombre d'infractions 
+        queryParameters:
+            type: 
+                description: "Type sous laquel la liste sera renvoyée"
+                required: true
+                type: string
+                example: "JSON, XML, CSV"
+        body:
+            application/json:
+                example: |
+                    [
+                        {
+                            "infractions": 9,
+                            "nom": "SAINT-JEAN BAGEL"
+                        },
+                    [
+            
+            application/xml:
+                example: |
+                    <contrevenants>
+                        <contrevenants>
+                            <nom>SAINT-JEAN BAGEL</nom>
+                            <infractions>9</infractions>
+                        </contrevenants>
+                    </contrevenants>
+            
+            text/csv:
+                example: |
+                    "nom","infractions"
+                    "SAINT-JEAN BAGEL",9
+
+
+/dataset:
+    get:
+        description: Retourne la liste des contrevenants en xml
+        body:
+            application/xml:
+                
+/doc:
+    get:
+        description: Retourne la documentation complète du projet
+        body:
+            text/html:
