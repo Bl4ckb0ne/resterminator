@@ -9,10 +9,12 @@ var router = express.Router();
 
 var Contrevenant_Schema = require(__dirname+'/../models/contrevenant'); 
 
+// Index
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
+// Retourne la liste complète des contrevenants en format json
 router.get('/contrevenants/', function(req, res, next) {
     Contrevenant_Schema.find({}, function (err, c) {
         if (err) return handleError(err);
@@ -22,7 +24,8 @@ router.get('/contrevenants/', function(req, res, next) {
     });
 });
 
-router.get('/contrevenants/date_jugement/', function(req, res, next) {
+// Retourne la liste des contrevenants par date d'infraction
+router.get('/contrevenants/date_infraction/', function(req, res, next) {
     if("du" in req.query && "au" in req.query)
     {
         if(moment(req.query['du']).isAfter(req.query['au']))
@@ -42,12 +45,13 @@ router.get('/contrevenants/date_jugement/', function(req, res, next) {
     }
     else
     {
-            res.status(400);
-            res.send("Erreur: date 'du' et/ou 'au' manquantes");
+        res.status(400);
+        res.send({"Erreur" : "date 'du' et/ou 'au' manquantes"});
     }
 });
 
-router.get('/contrevenants/etablissement', function(req, res, next) {
+// Retourne la liste des contrevenants par nom d'établissement
+router.get('/contrevenants/etablissement/', function(req, res, next) {
     if('etablissement' in req.query)
     {
         Contrevenant_Schema.find({etablissement: req.query['etablissement']}, function (err, c) {
@@ -59,11 +63,12 @@ router.get('/contrevenants/etablissement', function(req, res, next) {
     }
     else
     {
-            res.status(400);
-            res.send("Erreur: nom d'établissement manquant");
+        res.status(400);
+        res.send({"Erreur" : "nom d'établissement manquantes"});
     }
 });
 
+// Retourne la liste des établissements ayant commis une infraction, et le nombre d'infractions
 router.get('/contrevenants/etablissement/liste/', function(req, res, next) {
     Contrevenant_Schema.find({}, function (err, c) {
         if (err) return handleError(err);
@@ -126,18 +131,20 @@ router.get('/contrevenants/etablissement/liste/', function(req, res, next) {
             else
             {
                 res.status(400);
-                res.send("Erreur: type de donnée erroné");
+                res.header("Content-Type", "application/json");
+                res.send({"Erreur" : "type de donnée erroné"});
             }
         }
         else
         {
             res.status(400);
-            res.send("Erreur: type de donnée non spécialisé");
+            res.header("Content-Type", "application/json");
+            res.send({"Erreur" : "type de donnée non spécialisé"});
         }
     });
 });
     
-
+// Retourne le dataset original sous fortmat XML par forward et conversion
 router.get('/dataset/', function(req, res, next) {
     request.get({
             uri : 'http://donnees.ville.montreal.qc.ca/dataset/a5c1f0b9-261f-4247-99d8-f28da5000688/resource/92719d9b-8bf2-4dfd-b8e0-1021ffcaee2f/download/inspection-aliments-contrevenants.xml',
@@ -150,6 +157,7 @@ router.get('/dataset/', function(req, res, next) {
     });
 });
 
+// Retourne toute la documentation du projet
 router.get('/doc/', function(req, res, next) {
     raml2html.render(path.join(__dirname, '../public/doc/resterminator.raml'), raml2html.getDefaultConfig()).then(function(result) {
             res.send(result);

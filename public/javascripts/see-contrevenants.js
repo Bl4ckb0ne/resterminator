@@ -1,8 +1,9 @@
+// Fonction qui va éliminer les doubles d'une liste 
 // http://stackoverflow.com/questions/1890203/unique-for-arrays-in-javascript
 function unique(arr) {
     var hash = {}, result = [];
     for ( var i = 0, l = arr.length; i < l; ++i ) {
-        if ( !hash.hasOwnProperty(arr[i]) ) { //it works with objects! in FF, at least
+        if ( !hash.hasOwnProperty(arr[i]) ) { 
             hash[ arr[i] ] = true;
             result.push(arr[i]);
         }
@@ -11,6 +12,8 @@ function unique(arr) {
 }
 
 $(document).ready(function() {
+
+    // Remplis le menu déroulant de contrevenant pour la recherche
     $.getJSON("/contrevenants/", function(data) {
         var options = $("#options");
         var names = [];
@@ -26,6 +29,7 @@ $(document).ready(function() {
         });
     });
  
+    // Recherche par date d'infraction
     $('#c-date').submit(function(e) {
         e.preventDefault();
 
@@ -36,6 +40,7 @@ $(document).ready(function() {
             dataType : "json",
         }) 
         .done(function(data) {
+            // Remplissage de la liste d'affichage
             $('#liste-contrevenants').empty();
             $.each(data.contrevenants, function (index, c) {
                 $('#liste-contrevenants').append(
@@ -53,11 +58,12 @@ $(document).ready(function() {
                 );
             });
         })
-        .fail(function( xhr, status, errorThrown ) {
-            alert( "Sorry, there was a problem!" );
+        .fail(function(xhr, status, errorThrown) {
+            alert("Désolé, il semble qu'il y a un problème avec la base de donnée");
         });
     });
- 
+
+    // Rercherche par nom 
     $('#c-nom').submit(function(e) {
         e.preventDefault();
 
@@ -70,6 +76,7 @@ $(document).ready(function() {
             dataType : "json",
         }) 
         .done(function(data) {
+            // Remplissage de la liste des contrevenants
             $('#liste-contrevenants').empty();
             $.each(data.contrevenants, function (index, c) {
                 $('#liste-contrevenants').append(
@@ -87,8 +94,8 @@ $(document).ready(function() {
                 );
             });
         })
-        .fail(function( xhr, status, errorThrown ) {
-            alert( "Sorry, there was a problem!" );
+        .fail(function(xhr, status, errorThrown) {
+            alert("Désolé, il semble qu'il y a un problème avec la base de donnée");
         });
     });
 }); 

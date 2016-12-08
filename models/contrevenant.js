@@ -1,5 +1,6 @@
 var mongoose = require("mongoose");
 
+// Schéma sous lequel le contrevenant est représenté dans la base de donnée
 var contrevenant = mongoose.Schema({
     montant: String,
     date_jugement: String,

@@ -9,8 +9,10 @@ var request = require('request');
 var iconv = require('iconv-lite');
 var moment = require('moment');
 
+// Connection à mLab
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
+// Super mot de passe décrivant mon amour pour nodejs
 mongoose.connect('mongodb://resterminator:nodejssucks@ds139567.mlab.com:39567/resterminator');
 
 var routes = require('./routes/index');
@@ -38,20 +40,20 @@ app.use(function(req, res, next) {
     next(err);
 });
 
-// Connect to the db
+// Connection à la base de donnée
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
     console.log("Mongoose connected");
 });
 
-// Flush the xmlschema database at start
+// Flush la base de donnée au démarrage
 var Contrevenant_Schema = require(__dirname+'/models/contrevenant'); 
 Contrevenant_Schema.remove({}, function(err) { 
    console.log('contrevenants list cleaned'); 
 });
 
-// Store refresh the dataset
+// Remplis la base de donnée avec un dataset à jour
 request.get({
     uri : 'http://donnees.ville.montreal.qc.ca/dataset/a5c1f0b9-261f-4247-99d8-f28da5000688/resource/92719d9b-8bf2-4dfd-b8e0-1021ffcaee2f/download/inspection-aliments-contrevenants.xml',
     encoding : null
@@ -64,6 +66,7 @@ request.get({
     {
         c = contrevenants_json.contrevenants.contrevenant[i];
 
+        // Conversion de la date vers YYYY-MM-DD pour la recherche par date
         try {
             c.date_infraction  = moment(c.date_infraction, "DD MMMM YYYY", 'fr').format("YYYY-MM-DD");
         } catch(err) {
@@ -86,7 +89,7 @@ request.get({
     console.log("Contrevenants list refreshed");
 });
 
-// Each midnight, refresh the dataset
+// Tous les minuit, le dataset sera flushé et stocké à nouveau dans la base de donnée
 var j = schedule.scheduleJob({hour: 00, minute: 00}, function(){
     XMLSchema.remove({}, function(err) { 
     console.log('XMLSchema cleaned'); 

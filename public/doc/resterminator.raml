@@ -6,25 +6,27 @@ baseUri: http://localhost:3000/
 /contrevenants/:
     get:
         description: Retourne la liste de tous les contrevenants
-        body:
-            application/json:
-                example: |
-                        "contrevenants": [
-                        {
-                            "__v": 0,
-                            "_id": "582cc1b9fff9cd68b004e61c",
-                            "adresse": "7007 Boul. Pie-IX",
-                            "categorie": "Restaurant",
-                            "date_infraction": "2013-01-28",
-                            "date_jugement": "2014-01-03",
-                            "description": "Les lieux, véhicules, équipements, matériaux et ustensiles servant à la préparation au conditionnement, à l'entreposage, au transport, à l'étiquetage et au service des produits, ainsi que les autres installations et locaux sanitaires, doivent être propres.",
-                            "etablissement": "RESTAURANT NGUN SHING",
-                            "montant": "2000 $",
-                            "proprietaire": "9159-9019 QUEBEC INC.  (Fermé changement d'exploitant)",
-                            "ville": "Montréal H2A 2G3"
-                        }
+        responses:
+            200:
+                body:
+                    application/json:
+                        example: |
+                                "contrevenants": [
+                                {
+                                    "__v": 0,
+                                    "_id": "582cc1b9fff9cd68b004e61c",
+                                    "adresse": "7007 Boul. Pie-IX",
+                                    "categorie": "Restaurant",
+                                    "date_infraction": "2013-01-28",
+                                    "date_jugement": "2014-01-03",
+                                    "description": "Les lieux, véhicules, équipements, matériaux et ustensiles servant à la préparation au conditionnement, à l'entreposage, au transport, à l'étiquetage et au service des produits, ainsi que les autres installations et locaux sanitaires, doivent être propres.",
+                                    "etablissement": "RESTAURANT NGUN SHING",
+                                    "montant": "2000 $",
+                                    "proprietaire": "9159-9019 QUEBEC INC.  (Fermé changement d'exploitant)",
+                                    "ville": "Montréal H2A 2G3"
+                                }
     
-/contrevenants/date_jugement/:
+/contrevenants/date_infraction/:
     get:
         description: Retourne la liste des contrevenants ayant commis une infraction entre deux dates spécifiées 
         queryParameters:
@@ -38,23 +40,32 @@ baseUri: http://localhost:3000/
                 required: true
                 type: date
                 example: "2016-05-13"
-        body:
-            application/json:
-                example: |
-                        "contrevenants": [
-                        {
-                            "__v": 0,
-                            "_id": "582cc1b9fff9cd68b004e61c",
-                            "adresse": "7007 Boul. Pie-IX",
-                            "categorie": "Restaurant",
-                            "date_infraction": "2013-01-28",
-                            "date_jugement": "2014-01-03",
-                            "description": "Les lieux, véhicules, équipements, matériaux et ustensiles servant à la préparation au conditionnement, à l'entreposage, au transport, à l'étiquetage et au service des produits, ainsi que les autres installations et locaux sanitaires, doivent être propres.",
-                            "etablissement": "RESTAURANT NGUN SHING",
-                            "montant": "2000 $",
-                            "proprietaire": "9159-9019 QUEBEC INC.  (Fermé changement d'exploitant)",
-                            "ville": "Montréal H2A 2G3"
-                        }
+        responses:
+            200:
+                body:
+                    application/json:
+                        example: |
+                                "contrevenants": [
+                                {
+                                    "__v": 0,
+                                    "_id": "582cc1b9fff9cd68b004e61c",
+                                    "adresse": "7007 Boul. Pie-IX",
+                                    "categorie": "Restaurant",
+                                    "date_infraction": "2013-01-28",
+                                    "date_jugement": "2014-01-03",
+                                    "description": "Les lieux, véhicules, équipements, matériaux et ustensiles servant à la préparation au conditionnement, à l'entreposage, au transport, à l'étiquetage et au service des produits, ainsi que les autres installations et locaux sanitaires, doivent être propres.",
+                                    "etablissement": "RESTAURANT NGUN SHING",
+                                    "montant": "2000 $",
+                                    "proprietaire": "9159-9019 QUEBEC INC.  (Fermé changement d'exploitant)",
+                                    "ville": "Montréal H2A 2G3"
+                                }
+            400:
+                body:
+                    application/json:
+                        example: |
+                                {
+                                    "Erreur" : "date 'du' et/ou 'au' manquantes"
+                                }
 
 /contrevenants/etablissement/:
     get:
@@ -65,23 +76,33 @@ baseUri: http://localhost:3000/
                 required: true
                 type: string
                 example: "L'ESCALIER+SHIMSHA"
-        body:
-            application/json:
-                example: |
-                        "contrevenants": [
-                        {
-                            "__v": 0,
-                            "_id": "582cc1b9fff9cd68b004e61c",
-                            "adresse": "7007 Boul. Pie-IX",
-                            "categorie": "Restaurant",
-                            "date_infraction": "2013-01-28",
-                            "date_jugement": "2014-01-03",
-                            "description": "Les lieux, véhicules, équipements, matériaux et ustensiles servant à la préparation au conditionnement, à l'entreposage, au transport, à l'étiquetage et au service des produits, ainsi que les autres installations et locaux sanitaires, doivent être propres.",
-                            "etablissement": "RESTAURANT NGUN SHING",
-                            "montant": "2000 $",
-                            "proprietaire": "9159-9019 QUEBEC INC.  (Fermé changement d'exploitant)",
-                            "ville": "Montréal H2A 2G3"
-                        }
+        responses:
+            200:
+                body:
+                    application/json:
+                        example: |
+                                "contrevenants": [
+                                {
+                                    "__v": 0,
+                                    "_id": "582cc1b9fff9cd68b004e61c",
+                                    "adresse": "7007 Boul. Pie-IX",
+                                    "categorie": "Restaurant",
+                                    "date_infraction": "2013-01-28",
+                                    "date_jugement": "2014-01-03",
+                                    "description": "Les lieux, véhicules, équipements, matériaux et ustensiles servant à la préparation au conditionnement, à l'entreposage, au transport, à l'étiquetage et au service des produits, ainsi que les autres installations et locaux sanitaires, doivent être propres.",
+                                    "etablissement": "RESTAURANT NGUN SHING",
+                                    "montant": "2000 $",
+                                    "proprietaire": "9159-9019 QUEBEC INC.  (Fermé changement d'exploitant)",
+                                    "ville": "Montréal H2A 2G3"
+                                }
+            400:
+                body:
+                    application/json:
+                        example: |
+                                {
+                                    "Erreur" : "nom d'établissement manquantes"
+                                }
+
 /contrevenants/etablissement/liste/:
     get:
         description: Retourne la liste des restaurants ayant commis une infraction, et le nombre d'infractions 
@@ -91,39 +112,86 @@ baseUri: http://localhost:3000/
                 required: true
                 type: string
                 example: "JSON, XML, CSV"
-        body:
-            application/json:
-                example: |
-                    [
-                        {
-                            "infractions": 9,
-                            "nom": "SAINT-JEAN BAGEL"
-                        },
-                    [
-            
-            application/xml:
-                example: |
-                    <contrevenants>
-                        <contrevenants>
-                            <nom>SAINT-JEAN BAGEL</nom>
-                            <infractions>9</infractions>
-                        </contrevenants>
-                    </contrevenants>
-            
-            text/csv:
-                example: |
-                    "nom","infractions"
-                    "SAINT-JEAN BAGEL",9
+        responses:
+            200:
+                body:
+                    application/json:
+                        example: |
+                            [
+                                {
+                                    "infractions": 9,
+                                    "nom": "SAINT-JEAN BAGEL"
+                                },
+                            [
+                    
+                    application/xml:
+                        example: |
+                            <contrevenants>
+                                <contrevenants>
+                                    <nom>SAINT-JEAN BAGEL</nom>
+                                    <infractions>9</infractions>
+                                </contrevenants>
+                            </contrevenants>
+                    
+                    text/csv:
+                        example: |
+                            "nom","infractions"
+                            "SAINT-JEAN BAGEL",9
+            400:
+                body:
+                    application/json:
+                        example: |
+                                {
+                                    "Erreur" : "type de donnée erroné"
+                                }
 
 
-/dataset:
+/dataset/:
     get:
         description: Retourne la liste des contrevenants en xml
-        body:
-            application/xml:
+        responses:
+            200:
+                body:
+                    application/xml:
+                        example: |
+                            <contrevenants xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ville.montreal.qc.ca/pls/portal/docs/PAGE/ADMIN_FR/MEDIA/DOCUMENTS/CONTREVENANTS.XSD">
+                                <contrevenant>
+                                    <proprietaire>
+                                        <![CDATA[ RESTAURANT MARABOU CREOLE INC. ]]>
+                                    </proprietaire>
+                                    <categorie>
+                                        <![CDATA[ Restaurant ]]>
+                                    </categorie>
+                                    <etablissement>
+                                        <![CDATA[ RESTAURANT MARABOU CREOLE ]]>
+                                    </etablissement>
+                                    <adresse>
+                                        <![CDATA[ 9880 Boul. Saint-Laurent ]]>
+                                    </adresse>
+                                    <ville>
+                                        <![CDATA[ Montréal H3L 2N3 ]]>
+                                    </ville>
+                                    <description>
+                                        <![CDATA[
+                                            Le produit altérable à la chaleur à l'exception des fruits et légumes frais entiers doit être refroidi sans retard et maintenu constamment à une température interne et ambiante ne dépassant pas 4ºC jusqu'à sa livraison au consommateur, sauf pendant le temps requis pour l'application d'un procédé de fabrication ou d'un traitement reconnu en industrie alimentaire et qui exige une plus haute température.
+                                        ]]>
+                                    </description>
+                                    <date_infraction>
+                                        <![CDATA[ 21 janvier 2016 ]]>
+                                    </date_infraction>
+                                    <date_jugement>
+                                        <![CDATA[ 30 septembre 2016 ]]>
+                                    </date_jugement>
+                                    <montant>
+                                        <![CDATA[ 1350 $ ]]>
+                                    </montant>
+                                </contrevenant>
+                            </contrevenants>
                 
-/doc:
+/doc/:
     get:
         description: Retourne la documentation complète du projet
-        body:
-            text/html:
+        responses:
+            200:
+                body:
+                    text/html:
