@@ -12,8 +12,7 @@ var moment = require('moment');
 // Connection à mLab
 var mongoose = require('mongoose');
 mongoose.Promise = global.Promise;
-// Super mot de passe décrivant mon amour pour nodejs
-mongoose.connect('mongodb://resterminator:nodejssucks@ds139567.mlab.com:39567/resterminator');
+mongoose.connect('MONGODB url here');
 
 var routes = require('./routes/index');
 
